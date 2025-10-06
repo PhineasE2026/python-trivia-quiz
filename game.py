@@ -144,59 +144,96 @@ pokemonTrivia = [
 ]
 
 def play_game(seconds):
-    while seconds > 0:
-        score = 0
-        minutes, secs = divmod(seconds, 60)
+    score = 0
+    start_time = time.time()
+    remaining_time = seconds
+    while remaining_time > 0:
+        minutes, secs = divmod(int(remaining_time), 60)
         timer_display = f"{minutes:02d}:{secs:02d}"
+        print(f"\nTime remaining: {timer_display}")
         choice = input('Choose a category between:\nScience, History, TV, Geography, Pokemon\n')
         if (choice == 'Science'):
-            choice2 = input('\nChoose a question between 1-5\n')
-            if (choice2 == '1'):
-                print(scienceTrivia['question'])
-                for i, option in enumerate(q['options'], 1):
-                    print(f"{i}. {option}")
-            
-            elif (choice2 == 2):
-                4
-            
-            elif (choice2 == 3):
-                4
-            
-            elif (choice2 == 4):
-                4
-            
-            elif (choice2 == 5):
-                4
-            
+            q_index = 0
+            question_data = scienceTrivia[q_index]
+            print(f"\nQuestion: {question_data['question']}")
+            print(f"Options: {', '.join(question_data['options'])}")
+            answer = input("Your answer: ")
+            if answer.lower() == question_data['answer'].lower():
+                print("Correct!")
+                score += 1
             else:
-                print('Not an option')
-         
+                print(f"Incorrect! The correct answer was: {question_data['answer']}")
+            scienceTrivia.pop(q_index)
+
         elif (choice == 'History'):
-            4
+            q_index = 0
+            question_data = historyTrivia[q_index]
+            print(f"\nQuestion: {question_data['question']}")
+            print(f"Options: {', '.join(question_data['options'])}")
+            answer = input("Your answer: ")
+            if answer.lower() == question_data['answer'].lower():
+                print("Correct!")
+                score += 1
+            else:
+                print(f"Incorrect! The correct answer was: {question_data['answer']}")
+            historyTrivia.pop(q_index)
 
         elif (choice == 'TV'):
-            4
+            q_index = 0
+            question_data = tvTrivia[q_index]
+            print(f"\nQuestion: {question_data['question']}")
+            print(f"Options: {', '.join(question_data['options'])}")
+            answer = input("Your answer: ")
+            if answer.lower() == question_data['answer'].lower():
+                print("Correct!")
+                score += 1
+            else:
+                print(f"Incorrect! The correct answer was: {question_data['answer']}")
+            tvTrivia.pop(q_index)
 
         elif (choice == 'Geography'):
-            4
+            q_index = 0
+            question_data = geographyTrivia[q_index]
+            print(f"\nQuestion: {question_data['question']}")
+            print(f"Options: {', '.join(question_data['options'])}")
+            answer = input("Your answer: ")
+            if answer.lower() == question_data['answer'].lower():
+                print("Correct!")
+                score += 1
+            else:
+                print(f"Incorrect! The correct answer was: {question_data['answer']}")
+            geographyTrivia.pop(q_index)
         
         elif (choice == 'Pokemon'):
-            4
+            q_index = 0
+            question_data = pokemonTrivia[q_index]
+            print(f"\nQuestion: {question_data['question']}")
+            print(f"Options: {', '.join(question_data['options'])}")
+            answer = input("Your answer: ")
+            if answer.lower() == question_data['answer'].lower():
+                print("Correct!")
+                score += 1
+            else:
+                print(f"Incorrect! The correct answer was: {question_data['answer']}")
+            pokemonTrivia.pop(q_index)
         
         else:
             print('Not an option')
 
-        print(timer_display)
-        time.sleep(1)
-        seconds -= 1
+        elapsed_time = time.time() - start_time
+        remaining_time = seconds - elapsed_time
+        print(f"Score: {score}")
         if (score == 25):
             break
-    print("\nTIME'S UP!")
+    print("\n--- Time's up ---\n")
+    print(f"Final Score: {score}")
+    if (score == 25):
+        print("\n\nYou got all questions right! Good job :D")
 
 def main():
     print("Starting a new Trivia game...")
     name = input("Enter your name: ")
-    print(f"Welcome to Jeopardy, {name}!\nIn this game you'll have a limited amount of time to complete all the questions.\nYour total score will be provided at the end.")
+    print(f"Welcome to (not) Jeopardy, {name}!\nIn this game you'll have a limited amount of time to complete all the questions.\nYour total score will be provided at the end.")
     input("\nEnter to start.")
     play_game(300)
 
