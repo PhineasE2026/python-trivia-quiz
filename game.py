@@ -143,6 +143,13 @@ pokemonTrivia = [
     }
 ]
 
+def print_with_color(text, color, bold=False):
+    colors = ["red", "green", "yellow", "blue", "magenta", "cyan"]
+    if not color in colors:
+        raise ValueError(f"Invalid color: {color}; Choose one of: {colors}")
+    ansi_code = colors.index(color) + 31 # https://en.wikipedia.org/wiki/ANSI_escape_code
+    print(f"\033[{ansi_code}m{text}\033[0m")
+
 def play_game(seconds):
     categories = ['Science', 'History', 'TV', 'Geography', 'Pokemon']
     score = 0
@@ -152,50 +159,60 @@ def play_game(seconds):
         minutes, secs = divmod(int(remaining_time), 60)
         timer_display = f"{minutes:02d}:{secs:02d}"
         print(f"\nTime remaining: {timer_display}")
-        choice = input(f'Choose a category between:\n{categories}\n')
+        if scienceTrivia:
+            print_with_color('Science','green')
+        if historyTrivia:
+            print_with_color('History','blue')
+        if tvTrivia:
+            print_with_color('TV','red')
+        if geographyTrivia:
+            print_with_color('Geography','cyan')
+        if pokemonTrivia:
+            print_with_color('Pokemon','yellow')
+        choice = input(f'Choose a category\n')
         while (choice.lower() == 'science'):
             q_index = 0
             question_data = scienceTrivia[q_index]
-            print(f"\nQuestion: {question_data['question']}")
-            print(f"Options: {', '.join(question_data['options'])}")
-            answer = input("Your answer: ")
+            print_with_color(f"\nQuestion: {question_data['question']}",'green')
+            print_with_color(f"Options: {', '.join(question_data['options'])}",'green')
+            answer = input('Your answer: ')
             if answer.lower() == question_data['answer'].lower():
-                print("Correct!")
+                print_with_color('Correct!','green')
                 score += 1
             else:
-                print(f"Incorrect! The correct answer was: {question_data['answer']}")
+                print_with_color(f"Incorrect! The correct answer was: {question_data['answer']}",'green')
             scienceTrivia.pop(q_index)
             if not scienceTrivia:
                 categories.remove('Science')
                 break
 
-        while (choice.lower == 'history'):
+        while (choice.lower() == 'history'):
             q_index = 0
             question_data = historyTrivia[q_index]
-            print(f"\nQuestion: {question_data['question']}")
-            print(f"Options: {', '.join(question_data['options'])}")
+            print_with_color(f"\nQuestion: {question_data['question']}",'blue')
+            print_with_color(f"Options: {', '.join(question_data['options'])}",'blue')
             answer = input("Your answer: ")
             if answer.lower() == question_data['answer'].lower():
-                print("Correct!")
+                print_with_color('Correct!','blue')
                 score += 1
             else:
-                print(f"Incorrect! The correct answer was: {question_data['answer']}")
+                print_with_color(f"Incorrect! The correct answer was: {question_data['answer']}",'blue')
             historyTrivia.pop(q_index)
             if not historyTrivia:
                 categories.remove('History')
                 break
 
-        while (choice.lower == 'tv'):
+        while (choice.lower() == 'tv'):
             q_index = 0
             question_data = tvTrivia[q_index]
-            print(f"\nQuestion: {question_data['question']}")
-            print(f"Options: {', '.join(question_data['options'])}")
+            print_with_color(f"\nQuestion: {question_data['question']}",'red')
+            print_with_color(f"Options: {', '.join(question_data['options'])}",'red')
             answer = input("Your answer: ")
             if answer.lower() == question_data['answer'].lower():
-                print("Correct!")
+                print_with_color('Correct!','red')
                 score += 1
             else:
-                print(f"Incorrect! The correct answer was: {question_data['answer']}")
+                print_with_color(f"Incorrect! The correct answer was: {question_data['answer']}",'red')
             tvTrivia.pop(q_index)
             if not tvTrivia:
                 categories.remove('TV')
@@ -204,30 +221,30 @@ def play_game(seconds):
         while (choice.lower() == 'geography'):
             q_index = 0
             question_data = geographyTrivia[q_index]
-            print(f"\nQuestion: {question_data['question']}")
-            print(f"Options: {', '.join(question_data['options'])}")
+            print_with_color(f"\nQuestion: {question_data['question']}",'cyan')
+            print_with_color(f"Options: {', '.join(question_data['options'])}",'cyan')
             answer = input("Your answer: ")
             if answer.lower() == question_data['answer'].lower():
-                print("Correct!")
+                print_with_color('Correct!','cyan')
                 score += 1
             else:
-                print(f"Incorrect! The correct answer was: {question_data['answer']}")
+                print_with_color(f"Incorrect! The correct answer was: {question_data['answer']}",'cyan')
             geographyTrivia.pop(q_index)
             if not geographyTrivia:
                 categories.remove('Geography')
                 break
         
-        while (choice.lower == 'pokemon'):
+        while (choice.lower() == 'pokemon'):
             q_index = 0
             question_data = pokemonTrivia[q_index]
-            print(f"\nQuestion: {question_data['question']}")
-            print(f"Options: {', '.join(question_data['options'])}")
+            print_with_color(f"\nQuestion: {question_data['question']}",'yellow')
+            print_with_color(f"Options: {', '.join(question_data['options'])}",'yellow')
             answer = input("Your answer: ")
             if answer.lower() == question_data['answer'].lower():
-                print("Correct!")
+                print_with_color('Correct!','yellow')
                 score += 1
             else:
-                print(f"Incorrect! The correct answer was: {question_data['answer']}")
+                print_with_color(f"Incorrect! The correct answer was: {question_data['answer']}",'yellow')
             pokemonTrivia.pop(q_index)
             if not pokemonTrivia:
                 categories.remove('Pokemon')
