@@ -153,7 +153,7 @@ def play_game(seconds):
         timer_display = f"{minutes:02d}:{secs:02d}"
         print(f"\nTime remaining: {timer_display}")
         choice = input(f'Choose a category between:\n{categories}\n')
-        while (choice == 'Science'):
+        while (choice.lower() == 'science'):
             q_index = 0
             question_data = scienceTrivia[q_index]
             print(f"\nQuestion: {question_data['question']}")
@@ -169,7 +169,7 @@ def play_game(seconds):
                 categories.remove('Science')
                 break
 
-        while (choice == 'History'):
+        while (choice.lower == 'history'):
             q_index = 0
             question_data = historyTrivia[q_index]
             print(f"\nQuestion: {question_data['question']}")
@@ -185,7 +185,7 @@ def play_game(seconds):
                 categories.remove('History')
                 break
 
-        while (choice == 'TV'):
+        while (choice.lower == 'tv'):
             q_index = 0
             question_data = tvTrivia[q_index]
             print(f"\nQuestion: {question_data['question']}")
@@ -201,7 +201,7 @@ def play_game(seconds):
                 categories.remove('TV')
                 break
 
-        while (choice == 'Geography'):
+        while (choice.lower() == 'geography'):
             q_index = 0
             question_data = geographyTrivia[q_index]
             print(f"\nQuestion: {question_data['question']}")
@@ -217,7 +217,7 @@ def play_game(seconds):
                 categories.remove('Geography')
                 break
         
-        while (choice == 'Pokemon'):
+        while (choice.lower == 'pokemon'):
             q_index = 0
             question_data = pokemonTrivia[q_index]
             print(f"\nQuestion: {question_data['question']}")
