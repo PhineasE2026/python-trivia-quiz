@@ -144,6 +144,7 @@ pokemonTrivia = [
 ]
 
 def play_game(seconds):
+    categories = ['Science', 'History', 'TV', 'Geography', 'Pokemon']
     score = 0
     start_time = time.time()
     remaining_time = seconds
@@ -151,8 +152,8 @@ def play_game(seconds):
         minutes, secs = divmod(int(remaining_time), 60)
         timer_display = f"{minutes:02d}:{secs:02d}"
         print(f"\nTime remaining: {timer_display}")
-        choice = input('Choose a category between:\nScience, History, TV, Geography, Pokemon\n')
-        if (choice == 'Science'):
+        choice = input(f'Choose a category between:\n{categories}\n')
+        while (choice == 'Science'):
             q_index = 0
             question_data = scienceTrivia[q_index]
             print(f"\nQuestion: {question_data['question']}")
@@ -164,8 +165,11 @@ def play_game(seconds):
             else:
                 print(f"Incorrect! The correct answer was: {question_data['answer']}")
             scienceTrivia.pop(q_index)
+            if not scienceTrivia:
+                categories.remove('Science')
+                break
 
-        elif (choice == 'History'):
+        while (choice == 'History'):
             q_index = 0
             question_data = historyTrivia[q_index]
             print(f"\nQuestion: {question_data['question']}")
@@ -177,8 +181,11 @@ def play_game(seconds):
             else:
                 print(f"Incorrect! The correct answer was: {question_data['answer']}")
             historyTrivia.pop(q_index)
+            if not historyTrivia:
+                categories.remove('History')
+                break
 
-        elif (choice == 'TV'):
+        while (choice == 'TV'):
             q_index = 0
             question_data = tvTrivia[q_index]
             print(f"\nQuestion: {question_data['question']}")
@@ -190,8 +197,11 @@ def play_game(seconds):
             else:
                 print(f"Incorrect! The correct answer was: {question_data['answer']}")
             tvTrivia.pop(q_index)
+            if not tvTrivia:
+                categories.remove('TV')
+                break
 
-        elif (choice == 'Geography'):
+        while (choice == 'Geography'):
             q_index = 0
             question_data = geographyTrivia[q_index]
             print(f"\nQuestion: {question_data['question']}")
@@ -203,8 +213,11 @@ def play_game(seconds):
             else:
                 print(f"Incorrect! The correct answer was: {question_data['answer']}")
             geographyTrivia.pop(q_index)
+            if not geographyTrivia:
+                categories.remove('Geography')
+                break
         
-        elif (choice == 'Pokemon'):
+        while (choice == 'Pokemon'):
             q_index = 0
             question_data = pokemonTrivia[q_index]
             print(f"\nQuestion: {question_data['question']}")
@@ -216,16 +229,16 @@ def play_game(seconds):
             else:
                 print(f"Incorrect! The correct answer was: {question_data['answer']}")
             pokemonTrivia.pop(q_index)
-        
-        else:
-            print('Not an option')
+            if not pokemonTrivia:
+                categories.remove('Pokemon')
+                break
 
         elapsed_time = time.time() - start_time
         remaining_time = seconds - elapsed_time
         print(f"Score: {score}")
-        if (score == 25):
+        if (score == 25) or (not scienceTrivia and not historyTrivia and not tvTrivia and not geographyTrivia and not pokemonTrivia) or (remaining_time < 1):
             break
-    print("\n--- Time's up ---\n")
+    print("\n--- Game complete ---\n")
     print(f"Final Score: {score}")
     if (score == 25):
         print("\n\nYou got all questions right! Good job :D")
@@ -233,8 +246,8 @@ def play_game(seconds):
 def main():
     print("Starting a new Trivia game...")
     name = input("Enter your name: ")
-    print(f"Welcome to (not) Jeopardy, {name}!\nIn this game you'll have a limited amount of time to complete all the questions.\nYour total score will be provided at the end.")
+    print(f"Welcome to (not but kind of like because it has categories) Jeopardy, {name}!\nIn this game you'll have a limited amount of time to complete all the questions.\nYour total score will be provided at the end.")
     input("\nEnter to start.")
-    play_game(300)
+    play_game(270)
 
 main()
